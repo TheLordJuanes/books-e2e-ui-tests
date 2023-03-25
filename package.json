@@ -1,0 +1,24 @@
+{
+  "name": "books-e2e-ui-tests",
+  "version": "1.0.0",
+  "description": "Books App E2E UI Tests with Cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheLordJuanes/books-e2e-ui-tests.git"
+  },
+  "keywords": [
+    "ui-testing",
+    "dojo",
+    "cypress"
+  ],
+  "author": "Juan Esteban Caicedo Alzate <juancaicedo2000@gmail.com> (https://github.com/TheLordJuanes)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheLordJuanes/books-e2e-ui-tests/issues"
+  },
+  "homepage": "https://github.com/TheLordJuanes/books-e2e-ui-tests#readme"
+}
