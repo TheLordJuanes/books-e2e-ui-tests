@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/TheLordJuanes/books-e2e-ui-tests/issues"
   },
-  "homepage": "https://github.com/TheLordJuanes/books-e2e-ui-tests#readme"
+  "homepage": "https://github.com/TheLordJuanes/books-e2e-ui-tests#readme",
+  "devDependencies": {
+    "cypress": "^12.8.1"
+  }
 }
