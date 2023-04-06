@@ -9,10 +9,9 @@ class BookPage {
         this.saveButton = '.ant-modal-footer > .ant-btn-primary';
     }
 
-    public saveBook(bookName: string, bookAuthor: string) {
+    public enterBookInformation(bookName: string, bookAuthor: string) {
         cy.get(this.bookNameInput).click().type(bookName);
         cy.get(this.bookAuthorInput).click().type(bookAuthor);
-        cy.get(this.saveButton).click();
     }
 
     public updateBook(attributes: string[], newValue: string) {
@@ -26,6 +25,10 @@ class BookPage {
         });
 
         cy.get(this.saveButton).click();
+    }
+
+    public getSaveButton() {
+        return cy.get(this.saveButton);
     }
 }
 
