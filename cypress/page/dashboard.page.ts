@@ -1,12 +1,12 @@
 class DashboardPage {
-    private readonly addBookButton : string;
+    private addBookButton : string;
     private readonly deleteBookButton : string;
     private readonly updateBookButton : string;
     private selectBookButton : string;
-    private readonly selectAllBooksButton : string;
+    private selectAllBooksButton : string;
     private readonly booksTableBody : string;
-    private readonly previousPageButton : string;
-    private readonly nextPageButton : string;
+    private previousPageButton : string;
+    private nextPageButton : string;
     private readonly booksPerPageButton : string;
     private readonly maximumBooksPerPageButton : string;
 
