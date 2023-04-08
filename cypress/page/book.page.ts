@@ -14,17 +14,15 @@ class BookPage {
         cy.get(this.bookAuthorInput).click().type(bookAuthor);
     }
 
-    public updateBook(attributes: string[], newValue: string) {
+    public updateBookInformation(attributes: string[], newValues: string[]) {
         const selectors = {
             Name: this.bookNameInput,
             Author: this.bookAuthorInput,
         };
 
-        attributes.forEach(attribute => {
-            cy.get(selectors[attribute]).clear().click().type(newValue);
+        attributes.forEach((attribute, index) => {
+            cy.get(selectors[attribute]).click().clear().type(newValues[index]);
         });
-
-        cy.get(this.saveButton).click();
     }
 
     public getSaveButton() {
