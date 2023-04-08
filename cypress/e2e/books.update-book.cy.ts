@@ -1,22 +1,21 @@
-import { BookPage } from "../page";
-import { DashboardPage } from "../page";
+import { BookPage, DashboardPage } from "../page";
 
 const bookPage = new BookPage();
 const dashboardPage = new DashboardPage();
 
 describe("Verifying Updating Process of a Book in the Dashboard", () => {
-    let previousName;
-    let previousAuthor;
+    let previousBookName;
+    let previousBookAuthor;
 
     beforeEach(() => {
         // Arrange
         cy.visit("localhost:4200");
         cy.wait(1000);
         dashboardPage.getFirstRowCellByAttribute("Name").invoke("text").then((name) => {
-            previousName = name;
+            previousBookName = name;
         });
         dashboardPage.getFirstRowCellByAttribute("Author").invoke("text").then((author) => {
-            previousAuthor = author;
+            previousBookAuthor = author;
         });
         dashboardPage.openUpdateBookForm();
     });
@@ -31,11 +30,11 @@ describe("Verifying Updating Process of a Book in the Dashboard", () => {
 
             // Assertions
             dashboardPage.getFirstRowCellByAttribute("Name")
-                .should("not.have.text", previousName)
+                .should("not.have.text", previousBookName)
                 .and("have.text", "Moby-Dick");
 
             dashboardPage.getFirstRowCellByAttribute("Author")
-                .should("not.have.text", previousAuthor)
+                .should("not.have.text", previousBookAuthor)
                 .and("have.text", "Herman Melville");
         });
 
@@ -48,10 +47,10 @@ describe("Verifying Updating Process of a Book in the Dashboard", () => {
 
             // Assertions
             dashboardPage.getFirstRowCellByAttribute("Name")
-                .should("not.have.text", previousName)
+                .should("not.have.text", previousBookName)
                 .and("have.text", "Moby-Dick");
 
-            dashboardPage.getFirstRowCellByAttribute("Author").should("have.text", previousAuthor);
+            dashboardPage.getFirstRowCellByAttribute("Author").should("have.text", previousBookAuthor);
         });
 
         it("should update only the author of a book in the dashboard", () => {
@@ -63,15 +62,15 @@ describe("Verifying Updating Process of a Book in the Dashboard", () => {
 
             // Assertions
             dashboardPage.getFirstRowCellByAttribute("Author")
-                .should("not.have.text", previousAuthor)
+                .should("not.have.text", previousBookAuthor)
                 .and("have.text", "Herman Melville");
 
-            dashboardPage.getFirstRowCellByAttribute("Name").should("have.text", previousName);
+            dashboardPage.getFirstRowCellByAttribute("Name").should("have.text", previousBookName);
         });
 
         afterEach(() => {
             dashboardPage.openUpdateBookForm();
-            bookPage.updateBookInformation(["Name", "Author"], [previousName, previousAuthor]);
+            bookPage.updateBookInformation(["Name", "Author"], [previousBookName, previousBookAuthor]);
             bookPage.getSaveButton().click();
             cy.wait(1000);
         });
@@ -109,7 +108,7 @@ describe("Verifying Updating Process of a Book in the Dashboard", () => {
 
             afterEach(() => {
                 dashboardPage.openUpdateBookForm();
-                bookPage.updateBookInformation(["Name", "Author"], [previousName, previousAuthor]);
+                bookPage.updateBookInformation(["Name", "Author"], [previousBookName, previousBookAuthor]);
                 bookPage.getSaveButton().click();
                 cy.wait(1000);
             });

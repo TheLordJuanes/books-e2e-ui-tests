@@ -1,5 +1,4 @@
-import { BookPage } from "../page";
-import { DashboardPage } from "../page";
+import { BookPage, DashboardPage } from "../page";
 
 const bookPage = new BookPage();
 const dashboardPage = new DashboardPage();

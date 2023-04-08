@@ -10,8 +10,8 @@ class BookPage {
     }
 
     public enterBookInformation(bookName: string, bookAuthor: string) {
-        cy.get(this.bookNameInput).click().type(bookName);
-        cy.get(this.bookAuthorInput).click().type(bookAuthor);
+        cy.get(this.bookNameInput).click().wait(1000).type(bookName);
+        cy.get(this.bookAuthorInput).click().wait(1000).type(bookAuthor);
     }
 
     public updateBookInformation(attributes: string[], newValues: string[]) {
