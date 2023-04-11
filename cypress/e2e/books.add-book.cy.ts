@@ -14,7 +14,7 @@ describe("Verifying Adding Process of a Book to the Dashboard", () => {
     });
 
     describe("Happy path", () => {
-        it("should add a book to the dashboard", () => {
+        it("should add a book with one author to the Dashboard", () => {
             //Actions
             bookPage.enterBookInformation("Moby-Dick", "Herman Melville");
             bookPage.getSaveButton().click();
@@ -26,66 +26,67 @@ describe("Verifying Adding Process of a Book to the Dashboard", () => {
                 .and("include.text", "Herman Melville");
         });
 
+        it("should add a book with more than one author delimited by ', ' to the Dashboard", () => {
+            //Actions
+            bookPage.enterBookInformation("Hamlet", "Herman Melville, William Shakespeare");
+            bookPage.getSaveButton().click();
+            cy.wait(1000);
+
+            // Assertions
+            dashboardPage.getBooksTableBody()
+                .should("include.text", "Hamlet")
+                .and("include.text", "Herman Melville, William Shakespeare");
+        });
+
         after(() => {
-            dashboardPage.getBooksTableBody()
-                .contains('td', 'Moby-Dick')
-                .parent()
-                .find('[type="checkbox"]')
-                .check();
-
-            dashboardPage.getDeleteButton().click();
-
-            dashboardPage.getBooksTableBody()
-                .should('not.include.text', 'Moby-Dick')
-                .and('not.include.text', 'Herman Melville');
+            dashboardPage.deleteRandomBooks([
+                    {name: "Moby-Dick", author: "Herman Melville"},
+                    {name: "Hamlet", author: "Herman Melville, William Shakespeare"},
+                ]
+            );
         });
     });
 
     describe("Unhappy paths", () => {
-        describe("Adding a book with missing information", () => {
-            it("shouldn't add a book to the dashboard with an 'empty' name represented with a space, and a provided author", () => {
-                //Actions
-                bookPage.enterBookInformation(" ", "Herman Melville");
-                bookPage.getSaveButton().click();
+        it("shouldn't allow to add a book to the Dashboard with an 'empty' name represented with a space, and a provided author", () => {
+            //Actions
+            bookPage.enterBookInformation(" ", "Herman Melville");
 
-                // Assertions
-                dashboardPage.getBooksTableBody()
-                    .should("not.include.text", " ")
-                    .and("not.include.text", "Herman Melville");
-            });
-
-            it("shouldn't add a book to the dashboard with an 'empty' author represented with a space, and a provided name", () => {
-                //Actions
-                bookPage.enterBookInformation("Moby-Dick", " ");
-                bookPage.getSaveButton().click();
-
-                // Assertions
-                dashboardPage.getBooksTableBody()
-                    .should("not.include.text", "Moby-Dick")
-                    .and("not.include.text", " ");
-            });
-
-            it("shouldn't allow to add a book with both 'empty' name and author represented with a space", () => {
-                //Actions
-                bookPage.enterBookInformation(" ", " ");
-
-                // Assertions
-                bookPage.getSaveButton().should('be.disabled');
-            });
+            // Assertions
+            bookPage.getSaveButton().should('be.disabled');
         });
 
-        describe("Adding an existing book", () => {
-            it("shouldn't allow to add an existing book to the dashboard", () => {
-                //Actions
-                bookPage.enterBookInformation("Moby-Dick", "Herman Melville");
-                bookPage.getSaveButton().click();
-                cy.wait(1000);
-                dashboardPage.openAddBookForm();
-                bookPage.enterBookInformation("Moby-Dick", "Herman Melville");
+        it("shouldn't allow to add a book to the Dashboard with an 'empty' author represented with a space, and a provided name", () => {
+            //Actions
+            bookPage.enterBookInformation("Moby-Dick", " ");
 
-                // Assertions
-                bookPage.getSaveButton().should('be.disabled');
-            });
+            // Assertions
+            bookPage.getSaveButton().should('be.disabled');
+        });
+
+        it("shouldn't allow to add a book to the Dashboard with both 'empty' name and author represented with a space", () => {
+            //Actions
+            bookPage.enterBookInformation(" ", " ");
+
+            // Assertions
+            bookPage.getSaveButton().should('be.disabled');
+        });
+
+        it("shouldn't allow to add a book with more than one author not delimited by ', ' to the Dashboard", () => {
+            //Actions
+            bookPage.enterBookInformation("Hamlet", "Herman Melville; William Shakespeare");
+
+            // Assertions
+            bookPage.getSaveButton().should('be.disabled');
+        });
+
+        it("shouldn't allow to add an existing book to the Dashboard", () => {
+            //Actions
+            bookPage.enterBookInformation("Programming Pearls", "Jon Bentley");
+            cy.wait(1000);
+
+            // Assertions
+            bookPage.getSaveButton().should('be.disabled');
         });
     });
 });

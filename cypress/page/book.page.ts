@@ -1,3 +1,5 @@
+import { uniqueNamesGenerator, Config, names } from 'unique-names-generator';
+
 class BookPage {
     private readonly bookNameInput : string;
     private readonly bookAuthorInput : string;
@@ -9,9 +11,13 @@ class BookPage {
         this.saveButton = '.ant-modal-footer > .ant-btn-primary';
     }
 
+    public getSaveButton() {
+        return cy.get(this.saveButton);
+    }
+
     public enterBookInformation(bookName: string, bookAuthor: string) {
         cy.get(this.bookNameInput).click().wait(1000).type(bookName);
-        cy.get(this.bookAuthorInput).click().wait(1000).type(bookAuthor);
+        cy.get(this.bookAuthorInput).click().type(bookAuthor);
     }
 
     public updateBookInformation(attributes: string[], newValues: string[]) {
@@ -25,8 +31,15 @@ class BookPage {
         });
     }
 
-    public getSaveButton() {
-        return cy.get(this.saveButton);
+    public generateRandomBookInfo() {
+        const customConfig: Config = {
+            dictionaries: [names, names],
+            length: 2,
+            separator: ' ',
+        };
+        const bookName: string = uniqueNamesGenerator(customConfig);
+        const bookAuthor: string = uniqueNamesGenerator(customConfig);
+        return { name: bookName, author: bookAuthor };
     }
 }
 
