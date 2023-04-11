@@ -5,7 +5,12 @@ class DashboardPage {
     private selectAllBooksButton : string;
     private readonly booksTableBody : string;
     private readonly booksPerPageButton : string;
+    private readonly minimumBooksPerPageButton : string;
+    private readonly twentyBooksPerPageButton : string;
+    private readonly thirtyBooksPerPageButton : string;
+    private readonly fortyBooksPerPageButton : string;
     private readonly maximumBooksPerPageButton : string;
+    private readonly previousPageButton : string;
     private readonly nextPageButton : string;
     private readonly firstPageButton : string;
     private readonly secondPageButton : string;
@@ -17,7 +22,12 @@ class DashboardPage {
         this.selectAllBooksButton = '.ant-table-selection > .ant-checkbox-wrapper > .ant-checkbox > .ant-checkbox-input';
         this.booksTableBody = '.ant-spin-container';
         this.booksPerPageButton = '.ant-select-selector';
+        this.minimumBooksPerPageButton = '[ng-reflect-label="10 / page"] > .ant-select-item-option-content';
+        this.twentyBooksPerPageButton = '[ng-reflect-label="20 / page"] > .ant-select-item-option-content';
+        this.thirtyBooksPerPageButton = '[ng-reflect-label="30 / page"] > .ant-select-item-option-content';
+        this.fortyBooksPerPageButton = '[ng-reflect-label="40 / page"] > .ant-select-item-option-content';
         this.maximumBooksPerPageButton = '[ng-reflect-label="50 / page"] > .ant-select-item-option-content';
+        this.previousPageButton = '.ant-pagination-prev > .ant-pagination-item-link';
         this.nextPageButton = '.ant-pagination-next > .ant-pagination-item-link';
         this.firstPageButton = '[ng-reflect-index="1"] > .ng-star-inserted';
         this.secondPageButton = '[ng-reflect-index="2"] > .ng-star-inserted';
@@ -36,15 +46,6 @@ class DashboardPage {
         cy.get(this.deleteBookButton).click();
     }
 
-    public getFirstRowCellByAttribute(attribute: string) {
-        const columnIndex = {
-            Name: 2,
-            Author: 3
-        };
-
-        return cy.get(this.updateBookButton).parent().parent().find(`td:nth-child(${columnIndex[attribute]})`);
-    }
-
     public getBooksTableBody() {
         return cy.get(this.booksTableBody);
     }
@@ -55,6 +56,22 @@ class DashboardPage {
 
     public getBooksPerPageButton() {
         return cy.get(this.booksPerPageButton);
+    }
+
+    public getMinimumBooksPerPageButton() {
+        return cy.get(this.minimumBooksPerPageButton);
+    }
+
+    public getTwentyBooksPerPageButton() {
+        return cy.get(this.twentyBooksPerPageButton);
+    }
+
+    public getThirtyBooksPerPageButton() {
+        return cy.get(this.thirtyBooksPerPageButton);
+    }
+
+    public getFortyBooksPerPageButton() {
+        return cy.get(this.fortyBooksPerPageButton);
     }
 
     public getMaximumBooksPerPageButton() {
@@ -69,16 +86,33 @@ class DashboardPage {
         return cy.get(this.secondPageButton);
     }
 
+    public getPreviousPageButton() {
+        return cy.get(this.previousPageButton);
+    }
+
     public getNextPageButton() {
         return cy.get(this.nextPageButton);
     }
 
-    public checkBookButton(name: string) {
-        this.getBooksTableBody()
-            .contains('td', name)
-            .parent()
-            .find('[type="checkbox"]')
-            .check();
+    public getFirstRowCellByAttribute(attribute: string) {
+        const columnIndex = {
+            Name: 2,
+            Author: 3
+        };
+
+        return cy.get(this.updateBookButton).parent().parent().find(`td:nth-child(${columnIndex[attribute]})`);
+    }
+
+    public checkBookButton(bookName: string) {
+        this.getBooksTableBody().contains('td', bookName).parent().find('[type="checkbox"]').check();
+    }
+
+    public deleteRandomBooks(randomBookList: any[]) {
+        for (let i = 0; i < randomBookList.length; i++) {
+            this.checkBookButton(randomBookList[i]['name']);
+            this.getDeleteButton().click();
+            cy.wait(1000);
+        }
     }
 }
 

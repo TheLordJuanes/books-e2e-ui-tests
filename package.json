@@ -25,5 +25,8 @@
   "devDependencies": {
     "cypress": "^12.8.1",
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "unique-names-generator": "^4.7.1"
   }
 }
