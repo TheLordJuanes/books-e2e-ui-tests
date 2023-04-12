@@ -1,6 +1,6 @@
 # books-e2e-ui-tests
 
-This is the repository for the Cypress E2E UI tests of the [books website](https://books-ui-juans.azurewebsites.net/).
+This is the repository for the Cypress E2E UI tests in TypeScript of the [books website](https://books-ui-juans.azurewebsites.net/). The tested front-end code can be found [here](https://github.com/TheLordJuanes/books-ui).
 
 ## Instructions for running the tests
 
