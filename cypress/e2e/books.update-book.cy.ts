@@ -8,7 +8,12 @@ describe("Verifying Updating Process of a Book in the Dashboard", () => {
     let previousBookAuthor;
 
     before(() => {
-        cy.visit("localhost:4200");
+        // Arrange
+        cy.visit("https://books-ui-juans.azurewebsites.net");
+        cy.wait(1000);
+        dashboardPage.openAddBookForm();
+        bookPage.enterBookInformation("JJJ", "Juan");
+        bookPage.getSaveButton().click();
         cy.wait(1000);
         dashboardPage.getFirstRowCellByAttribute("Name").invoke("text").then((name) => {
             previousBookName = name;
@@ -20,7 +25,7 @@ describe("Verifying Updating Process of a Book in the Dashboard", () => {
 
     beforeEach(() => {
         // Arrange
-        cy.visit("localhost:4200");
+        cy.visit("https://books-ui-juans.azurewebsites.net");
         cy.wait(1000);
         dashboardPage.openUpdateBookForm();
     });
@@ -114,7 +119,7 @@ describe("Verifying Updating Process of a Book in the Dashboard", () => {
 
         it("shouldn't allow to update a book in the Dashboard with the same name and author of an other existing book", () => {
             //Actions
-            bookPage.updateBookInformation(["Name", "Author"], ["Programming Pearls", "Jon Bentley"]);
+            bookPage.updateBookInformation(["Name", "Author"], ["JJJ", "Juan"]);
 
             cy.wait(1000);
 
