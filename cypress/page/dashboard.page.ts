@@ -1,8 +1,8 @@
 class DashboardPage {
     private addBookButton : string;
-    private readonly deleteBookButton : string;
-    private readonly updateBookButton : string;
+    private updateBookButton : string;
     private selectAllBooksButton : string;
+    private readonly deleteBookButton : string;
     private readonly booksTableBody : string;
     private readonly booksPerPageButton : string;
     private readonly minimumBooksPerPageButton : string;
@@ -22,15 +22,15 @@ class DashboardPage {
         this.selectAllBooksButton = '.ant-table-selection > .ant-checkbox-wrapper > .ant-checkbox > .ant-checkbox-input';
         this.booksTableBody = '.ant-spin-container';
         this.booksPerPageButton = '.ant-select-selector';
-        this.minimumBooksPerPageButton = '[ng-reflect-label="10 / page"] > .ant-select-item-option-content';
-        this.twentyBooksPerPageButton = '[ng-reflect-label="20 / page"] > .ant-select-item-option-content';
-        this.thirtyBooksPerPageButton = '[ng-reflect-label="30 / page"] > .ant-select-item-option-content';
-        this.fortyBooksPerPageButton = '[ng-reflect-label="40 / page"] > .ant-select-item-option-content';
-        this.maximumBooksPerPageButton = '[ng-reflect-label="50 / page"] > .ant-select-item-option-content';
+        this.minimumBooksPerPageButton = '[title="10 / page"] > .ant-select-item-option-content';
+        this.twentyBooksPerPageButton = '[title="20 / page"] > .ant-select-item-option-content';
+        this.thirtyBooksPerPageButton = '[title="30 / page"] > .ant-select-item-option-content';
+        this.fortyBooksPerPageButton = '[title="40 / page"] > .ant-select-item-option-content';
+        this.maximumBooksPerPageButton = '[title="50 / page"] > .ant-select-item-option-content';
         this.previousPageButton = '.ant-pagination-prev > .ant-pagination-item-link';
         this.nextPageButton = '.ant-pagination-next > .ant-pagination-item-link';
-        this.firstPageButton = '[ng-reflect-index="1"] > .ng-star-inserted';
-        this.secondPageButton = '[ng-reflect-index="2"] > .ng-star-inserted';
+        this.firstPageButton = '[title="1"] > .ng-star-inserted';
+        this.secondPageButton = '[title="2"] > .ng-star-inserted';
     }
 
     public openAddBookForm() {

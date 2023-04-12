@@ -6,7 +6,7 @@ const dashboardPage = new DashboardPage();
 describe("Verifying Adding Process of a Book to the Dashboard", () => {
     beforeEach(() => {
         // Arrange
-        cy.visit("localhost:4200");
+        cy.visit("https://books-ui-juans.azurewebsites.net");
         cy.wait(1000);
         dashboardPage.getBooksPerPageButton().click();
         dashboardPage.getMaximumBooksPerPageButton().click();

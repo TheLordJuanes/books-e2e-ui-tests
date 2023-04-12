@@ -7,7 +7,7 @@ describe("Verifying Deleting Process of a Book in the Dashboard", () => {
     describe("Deleting all books from a page", () => {
         before(() => {
             //Arrange
-            cy.visit("localhost:4200");
+            cy.visit("https://books-ui-juans.azurewebsites.net");
             cy.wait(1000);
         });
 
@@ -23,7 +23,8 @@ describe("Verifying Deleting Process of a Book in the Dashboard", () => {
 
     describe("Deleting one, some and all books from the Dashboard", () => {
         before(() => {
-            cy.visit("localhost:4200");
+            // Arrange
+            cy.visit("https://books-ui-juans.azurewebsites.net");
             cy.wait(1000);
             dashboardPage.openAddBookForm();
             bookPage.enterBookInformation("AAA", "Ana");
@@ -41,7 +42,7 @@ describe("Verifying Deleting Process of a Book in the Dashboard", () => {
 
         beforeEach(() => {
             // Arrange
-            cy.visit("localhost:4200");
+            cy.visit("https://books-ui-juans.azurewebsites.net");
             cy.wait(1000);
             dashboardPage.getBooksPerPageButton().click();
             dashboardPage.getMaximumBooksPerPageButton().click();
